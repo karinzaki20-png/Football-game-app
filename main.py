@@ -1,7 +1,7 @@
 import os
 import sys
 
-import pygame
+
 
 from data import TEAMS
 from database import init_db
