@@ -15,6 +15,7 @@ st.set_page_config(
     page_title="Ultimate Football",
     page_icon="⚽",
     layout="wide",
+    initial_sidebar_state="expanded",
 )
 
 
@@ -32,50 +33,277 @@ init_db()
 st.markdown(
     """
     <style>
-        .main-title {
-            font-size: 48px;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 5px;
-        }
 
-        .subtitle {
-            text-align: center;
-            font-size: 18px;
-            margin-bottom: 30px;
-        }
+    /* Main background */
+    .stApp {
+        background:
+            radial-gradient(
+                circle at top left,
+                rgba(139, 92, 246, 0.25),
+                transparent 30%
+            ),
+            radial-gradient(
+                circle at top right,
+                rgba(236, 72, 153, 0.20),
+                transparent 30%
+            ),
+            linear-gradient(
+                135deg,
+                #0f172a 0%,
+                #172554 45%,
+                #312e81 100%
+            );
 
-        .team-card {
-            padding: 25px;
-            border-radius: 15px;
-            border: 1px solid #ddd;
-            text-align: center;
-            margin-bottom: 15px;
-        }
+        color: white;
+    }
 
-        .score {
-            font-size: 48px;
-            font-weight: 800;
-            text-align: center;
-        }
 
-        .winner {
-            font-size: 25px;
-            font-weight: 700;
-            text-align: center;
-        }
+    /* Main content */
+    .main .block-container {
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+        max-width: 1400px;
+    }
 
-        .section-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-top: 20px;
-            margin-bottom: 15px;
-        }
 
-        div.stButton > button {
-            width: 100%;
-            font-weight: 700;
-        }
+    /* Main title */
+    .main-title {
+        font-size: 58px;
+        font-weight: 900;
+        text-align: center;
+
+        background:
+            linear-gradient(
+                90deg,
+                #22d3ee,
+                #a78bfa,
+                #f472b6,
+                #facc15
+            );
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        margin-bottom: 0;
+    }
+
+
+    /* Subtitle */
+    .subtitle {
+        text-align: center;
+        font-size: 20px;
+        color: #cbd5e1;
+        margin-bottom: 30px;
+    }
+
+
+    /* Cards */
+    .football-card {
+        background:
+            linear-gradient(
+                145deg,
+                rgba(255,255,255,0.12),
+                rgba(255,255,255,0.04)
+            );
+
+        border: 1px solid rgba(255,255,255,0.15);
+
+        border-radius: 22px;
+
+        padding: 25px;
+
+        box-shadow:
+            0 10px 30px rgba(0,0,0,0.25);
+
+        margin-bottom: 20px;
+    }
+
+
+    /* Team card */
+    .team-card {
+        background:
+            linear-gradient(
+                145deg,
+                rgba(99,102,241,0.30),
+                rgba(236,72,153,0.18)
+            );
+
+        border: 1px solid rgba(255,255,255,0.18);
+
+        border-radius: 20px;
+
+        padding: 25px;
+
+        text-align: center;
+
+        min-height: 250px;
+
+        box-shadow:
+            0 12px 30px rgba(0,0,0,0.25);
+    }
+
+
+    /* Match score */
+    .score {
+        font-size: 70px;
+        font-weight: 900;
+        text-align: center;
+
+        background:
+            linear-gradient(
+                90deg,
+                #facc15,
+                #f472b6,
+                #a78bfa
+            );
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+
+    /* Winner */
+    .winner {
+        font-size: 28px;
+        font-weight: 800;
+        text-align: center;
+        color: #facc15;
+
+        padding: 15px;
+    }
+
+
+    /* Section titles */
+    .section-title {
+        font-size: 34px;
+        font-weight: 850;
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+        color: #f8fafc;
+    }
+
+
+    /* Gender badges */
+    .men-badge {
+        display: inline-block;
+
+        background:
+            linear-gradient(
+                90deg,
+                #2563eb,
+                #06b6d4
+            );
+
+        color: white;
+
+        padding: 7px 16px;
+
+        border-radius: 30px;
+
+        font-weight: 700;
+    }
+
+
+    .women-badge {
+        display: inline-block;
+
+        background:
+            linear-gradient(
+                90deg,
+                #ec4899,
+                #a855f7
+            );
+
+        color: white;
+
+        padding: 7px 16px;
+
+        border-radius: 30px;
+
+        font-weight: 700;
+    }
+
+
+    /* Buttons */
+    div.stButton > button {
+        width: 100%;
+
+        border: none;
+
+        border-radius: 14px;
+
+        padding: 12px;
+
+        font-weight: 800;
+
+        font-size: 17px;
+
+        background:
+            linear-gradient(
+                90deg,
+                #6366f1,
+                #ec4899
+            );
+
+        color: white;
+
+        box-shadow:
+            0 5px 20px rgba(99,102,241,0.35);
+
+        transition: 0.2s;
+    }
+
+
+    div.stButton > button:hover {
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 8px 25px rgba(236,72,153,0.45);
+    }
+
+
+    /* Metrics */
+    div[data-testid="stMetric"] {
+        background:
+            rgba(255,255,255,0.08);
+
+        border:
+            1px solid rgba(255,255,255,0.12);
+
+        padding: 15px;
+
+        border-radius: 15px;
+    }
+
+
+    /* Sidebar */
+    section[data-testid="stSidebar"] {
+        background:
+            linear-gradient(
+                180deg,
+                #111827,
+                #1e1b4b,
+                #312e81
+            );
+    }
+
+
+    /* Sidebar title */
+    section[data-testid="stSidebar"] h1,
+    section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] h3 {
+        color: white;
+    }
+
+
+    /* Divider */
+    hr {
+        border-color:
+            rgba(255,255,255,0.15);
+    }
+
+
     </style>
     """,
     unsafe_allow_html=True,
@@ -89,21 +317,27 @@ st.markdown(
 if "match_result" not in st.session_state:
     st.session_state.match_result = None
 
-if "team_a" not in st.session_state:
-    st.session_state.team_a = None
 
-if "team_b" not in st.session_state:
-    st.session_state.team_b = None
+if "gender_filter" not in st.session_state:
+    st.session_state.gender_filter = "All"
 
 
 # =========================================================
-# HELPER FUNCTIONS
+# FUNCTIONS
 # =========================================================
+
+def get_teams_by_gender(gender):
+    if gender == "All":
+        return list(TEAMS.keys())
+
+    return [
+        team_name
+        for team_name in TEAMS
+        if TEAMS[team_name]["gender"] == gender
+    ]
+
 
 def calculate_team_rating(team_name):
-    """
-    Calculate the average overall rating of a team.
-    """
     players = TEAMS[team_name]["players"]
 
     if not players:
@@ -111,20 +345,25 @@ def calculate_team_rating(team_name):
 
     ratings = []
 
-    for player in players:
+    for player_data in players:
         attributes = [
-            player["speed"],
-            player["shooting"],
-            player["passing"],
-            player["dribbling"],
-            player["defense"],
-            player["physical"],
-            player["stamina"],
+            player_data["speed"],
+            player_data["shooting"],
+            player_data["passing"],
+            player_data["dribbling"],
+            player_data["defense"],
+            player_data["physical"],
+            player_data["stamina"],
         ]
 
-        ratings.append(sum(attributes) / len(attributes))
+        ratings.append(
+            sum(attributes) / len(attributes)
+        )
 
-    return round(sum(ratings) / len(ratings), 1)
+    return round(
+        sum(ratings) / len(ratings),
+        1,
+    )
 
 
 def calculate_attack(team_name):
@@ -135,12 +374,12 @@ def calculate_attack(team_name):
 
     values = []
 
-    for player in players:
+    for player_data in players:
         values.append(
             (
-                player["speed"]
-                + player["shooting"]
-                + player["dribbling"]
+                player_data["speed"]
+                + player_data["shooting"]
+                + player_data["dribbling"]
             )
             / 3
         )
@@ -156,12 +395,12 @@ def calculate_defense(team_name):
 
     values = []
 
-    for player in players:
+    for player_data in players:
         values.append(
             (
-                player["defense"]
-                + player["physical"]
-                + player["stamina"]
+                player_data["defense"]
+                + player_data["physical"]
+                + player_data["stamina"]
             )
             / 3
         )
@@ -170,12 +409,6 @@ def calculate_defense(team_name):
 
 
 def simulate_match(team_a, team_b):
-    """
-    Simple football match simulation.
-
-    The result is based on team ratings and random variation.
-    """
-
     rating_a = calculate_team_rating(team_a)
     rating_b = calculate_team_rating(team_b)
 
@@ -185,29 +418,34 @@ def simulate_match(team_a, team_b):
     defense_a = calculate_defense(team_a)
     defense_b = calculate_defense(team_b)
 
-    # Overall strength
     strength_a = (
-        rating_a * 0.5
-        + attack_a * 0.3
-        + defense_a * 0.2
+        rating_a * 0.50
+        + attack_a * 0.30
+        + defense_a * 0.20
     )
 
     strength_b = (
-        rating_b * 0.5
-        + attack_b * 0.3
-        + defense_b * 0.2
+        rating_b * 0.50
+        + attack_b * 0.30
+        + defense_b * 0.20
     )
 
-    # Random football variation
-    performance_a = strength_a + random.uniform(-12, 12)
-    performance_b = strength_b + random.uniform(-12, 12)
+    performance_a = (
+        strength_a
+        + random.uniform(-12, 12)
+    )
 
-    # Base goals
+    performance_b = (
+        strength_b
+        + random.uniform(-12, 12)
+    )
+
     goals_a = max(
         0,
         int(
             random.gauss(
-                1.4 + (performance_a - performance_b) / 35,
+                1.4
+                + (performance_a - performance_b) / 35,
                 1.1,
             )
         ),
@@ -217,20 +455,22 @@ def simulate_match(team_a, team_b):
         0,
         int(
             random.gauss(
-                1.4 + (performance_b - performance_a) / 35,
+                1.4
+                + (performance_b - performance_a) / 35,
                 1.1,
             )
         ),
     )
 
-    # Prevent unrealistic huge scores
     goals_a = min(goals_a, 7)
     goals_b = min(goals_b, 7)
 
     if goals_a > goals_b:
         winner = team_a
+
     elif goals_b > goals_a:
         winner = team_b
+
     else:
         winner = "Draw"
 
@@ -243,22 +483,53 @@ def simulate_match(team_a, team_b):
     }
 
 
-def display_logo(team_name):
-    """
-    Display team logo if the image exists.
-    """
-
+def display_logo(team_name, width=130):
     logo_file = TEAM_LOGO_FILES.get(team_name)
 
     if not logo_file:
         return
 
-    logo_path = Path(__file__).resolve().parent / logo_file
+    logo_path = (
+        Path(__file__).resolve().parent
+        / logo_file
+    )
 
     if logo_path.exists():
-        st.image(str(logo_path), width=120)
+        st.image(
+            str(logo_path),
+            width=width,
+        )
+
     else:
-        st.info(f"Logo not found: {logo_file}")
+        st.markdown(
+            f"""
+            <div style="
+                font-size:60px;
+                text-align:center;
+                padding:15px;
+            ">
+                ⚽
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+
+def display_gender_badge(gender):
+    if gender == "Women":
+        st.markdown(
+            '<span class="women-badge">'
+            '👩 WOMEN'
+            '</span>',
+            unsafe_allow_html=True,
+        )
+    else:
+        st.markdown(
+            '<span class="men-badge">'
+            '👨 MEN'
+            '</span>',
+            unsafe_allow_html=True,
+        )
 
 
 # =========================================================
@@ -266,12 +537,17 @@ def display_logo(team_name):
 # =========================================================
 
 st.markdown(
-    '<div class="main-title">⚽ Ultimate Football</div>',
+    '<div class="main-title">'
+    '⚽ ULTIMATE FOOTBALL'
+    '</div>',
     unsafe_allow_html=True,
 )
 
 st.markdown(
-    '<div class="subtitle">Football Match Simulator</div>',
+    '<div class="subtitle">'
+    '🏆 Colorful Football Match Simulator '
+    '• Men & Women'
+    '</div>',
     unsafe_allow_html=True,
 )
 
@@ -284,13 +560,23 @@ st.divider()
 
 with st.sidebar:
 
-    st.header("Game Menu")
+    st.markdown(
+        """
+        <h1 style="text-align:center;">
+        ⚽ Ultimate Football
+        </h1>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.divider()
 
     page = st.radio(
-        "Choose a page:",
+        "GAME MENU",
         [
             "🏠 Home",
             "⚽ Start Match",
+            "👩 Women's Football",
             "👥 Teams & Players",
             "📊 Match History",
         ],
@@ -298,15 +584,19 @@ with st.sidebar:
 
     st.divider()
 
-    st.write("### Available Teams")
+    st.markdown("### 🏟️ Teams")
 
     for team_name in TEAMS:
-        team_type = TEAMS[team_name]["type"]
+
         gender = TEAMS[team_name]["gender"]
 
+        if gender == "Women":
+            icon = "👩"
+        else:
+            icon = "👨"
+
         st.write(
-            f"**{team_name}**  \n"
-            f"{gender} • {team_type}"
+            f"{icon} **{team_name}**"
         )
 
 
@@ -317,77 +607,124 @@ with st.sidebar:
 if page == "🏠 Home":
 
     st.markdown(
-        '<div class="section-title">Welcome to Ultimate Football</div>',
+        '<div class="section-title">'
+        'Welcome to Ultimate Football ⚽'
+        '</div>',
         unsafe_allow_html=True,
     )
 
-    st.write(
+    st.markdown(
         """
-        Welcome to **Ultimate Football**, a football match simulator
-        built with Python and Streamlit.
+        <div class="football-card">
 
-        Choose two teams, compare their players and ratings,
-        simulate a football match, and save the result to the
-        match history.
-        """
+        <h2>🏆 Welcome!</h2>
+
+        <p style="font-size:18px;">
+        Create exciting football matches between
+        men's and women's teams.
+        </p>
+
+        <p>
+        Choose your teams, compare their ratings,
+        simulate the match and check your history.
+        </p>
+
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
 
-    st.divider()
+    # Statistics
 
-    col1, col2, col3 = st.columns(3)
+    total_players = sum(
+        len(TEAMS[team]["players"])
+        for team in TEAMS
+    )
+
+    men_teams = len(
+        get_teams_by_gender("Men")
+    )
+
+    women_teams = len(
+        get_teams_by_gender("Women")
+    )
+
+    col1, col2, col3, col4 = st.columns(4)
 
     with col1:
         st.metric(
-            "Teams",
+            "⚽ Total Teams",
             len(TEAMS),
         )
 
     with col2:
-        total_players = sum(
-            len(TEAMS[name]["players"])
-            for name in TEAMS
-        )
-
         st.metric(
-            "Players",
-            total_players,
+            "👨 Men's Teams",
+            men_teams,
         )
 
     with col3:
         st.metric(
-            "Database",
-            "SQLite",
+            "👩 Women's Teams",
+            women_teams,
+        )
+
+    with col4:
+        st.metric(
+            "👥 Players",
+            total_players,
         )
 
     st.divider()
 
-    st.subheader("Available Teams")
+    st.markdown(
+        '<div class="section-title">'
+        '🏟️ Available Teams'
+        '</div>',
+        unsafe_allow_html=True,
+    )
 
-    columns = st.columns(len(TEAMS))
+    columns = st.columns(2)
 
     for index, team_name in enumerate(TEAMS):
 
-        with columns[index]:
+        with columns[index % 2]:
+
+            gender = TEAMS[team_name]["gender"]
 
             st.markdown(
-                f"### {team_name}"
+                '<div class="team-card">',
+                unsafe_allow_html=True,
             )
 
-            display_logo(team_name)
-
-            st.write(
-                f"**Type:** {TEAMS[team_name]['type']}"
+            st.markdown(
+                f"<h2>{team_name}</h2>",
+                unsafe_allow_html=True,
             )
 
-            st.write(
-                f"**Gender:** {TEAMS[team_name]['gender']}"
+            display_logo(
+                team_name,
+                width=110,
             )
 
-            rating = calculate_team_rating(team_name)
+            display_gender_badge(gender)
+
+            st.write("")
 
             st.metric(
-                "Team Rating",
-                rating,
+                "⭐ Team Rating",
+                calculate_team_rating(
+                    team_name
+                ),
+            )
+
+            st.write(
+                f"👥 {len(TEAMS[team_name]['players'])} players"
+            )
+
+            st.markdown(
+                '</div>',
+                unsafe_allow_html=True,
             )
 
 
@@ -398,65 +735,132 @@ if page == "🏠 Home":
 elif page == "⚽ Start Match":
 
     st.markdown(
-        '<div class="section-title">Start a Match</div>',
+        '<div class="section-title">'
+        '⚽ Start a Match'
+        '</div>',
         unsafe_allow_html=True,
     )
 
-    team_names = list(TEAMS.keys())
+    # Gender selection
+
+    gender = st.radio(
+        "Choose football category",
+        [
+            "Men",
+            "Women",
+            "All",
+        ],
+        horizontal=True,
+    )
+
+    available_teams = get_teams_by_gender(
+        gender
+    )
+
+    st.divider()
 
     col1, col2 = st.columns(2)
 
     with col1:
 
-        st.subheader("Home Team")
+        st.markdown(
+            '<div class="football-card">',
+            unsafe_allow_html=True,
+        )
+
+        st.subheader("🏠 Home Team")
 
         team_a = st.selectbox(
             "Select Home Team",
-            team_names,
-            key="home_team",
+            available_teams,
+            key="home_team_select",
         )
 
-        display_logo(team_a)
+        display_logo(
+            team_a,
+            width=140,
+        )
+
+        display_gender_badge(
+            TEAMS[team_a]["gender"]
+        )
 
         st.metric(
-            "Rating",
+            "⭐ Rating",
             calculate_team_rating(team_a),
+        )
+
+        st.markdown(
+            '</div>',
+            unsafe_allow_html=True,
         )
 
     with col2:
 
-        st.subheader("Away Team")
+        st.markdown(
+            '<div class="football-card">',
+            unsafe_allow_html=True,
+        )
 
-        team_b_options = [
-            team for team in team_names
+        st.subheader("✈️ Away Team")
+
+        away_options = [
+            team
+            for team in available_teams
             if team != team_a
         ]
 
+        if not away_options:
+
+            st.warning(
+                "You need at least two teams "
+                "in this category."
+            )
+
+            st.stop()
+
         team_b = st.selectbox(
             "Select Away Team",
-            team_b_options,
-            key="away_team",
+            away_options,
+            key="away_team_select",
         )
 
-        display_logo(team_b)
+        display_logo(
+            team_b,
+            width=140,
+        )
+
+        display_gender_badge(
+            TEAMS[team_b]["gender"]
+        )
 
         st.metric(
-            "Rating",
+            "⭐ Rating",
             calculate_team_rating(team_b),
+        )
+
+        st.markdown(
+            '</div>',
+            unsafe_allow_html=True,
         )
 
     st.divider()
 
-    # Team comparison
+    # Comparison
 
-    st.subheader("Team Comparison")
+    st.markdown(
+        '<div class="section-title">'
+        '📊 Team Comparison'
+        '</div>',
+        unsafe_allow_html=True,
+    )
 
-    comparison_col1, comparison_col2, comparison_col3 = st.columns(3)
+    c1, c2, c3 = st.columns(3)
 
-    with comparison_col1:
+    with c1:
 
         st.metric(
-            "Overall Rating",
+            "⭐ Overall Rating",
             calculate_team_rating(team_a),
             delta=round(
                 calculate_team_rating(team_a)
@@ -465,11 +869,14 @@ elif page == "⚽ Start Match":
             ),
         )
 
-    with comparison_col2:
+    with c2:
 
         st.metric(
-            "Attack",
-            round(calculate_attack(team_a), 1),
+            "⚡ Attack",
+            round(
+                calculate_attack(team_a),
+                1,
+            ),
             delta=round(
                 calculate_attack(team_a)
                 - calculate_attack(team_b),
@@ -477,11 +884,14 @@ elif page == "⚽ Start Match":
             ),
         )
 
-    with comparison_col3:
+    with c3:
 
         st.metric(
-            "Defense",
-            round(calculate_defense(team_a), 1),
+            "🛡️ Defense",
+            round(
+                calculate_defense(team_a),
+                1,
+            ),
             delta=round(
                 calculate_defense(team_a)
                 - calculate_defense(team_b),
@@ -492,7 +902,7 @@ elif page == "⚽ Start Match":
     st.divider()
 
     if st.button(
-        "⚽ START MATCH",
+        "🏆 START MATCH",
         type="primary",
         use_container_width=True,
     ):
@@ -511,7 +921,9 @@ elif page == "⚽ Start Match":
             result["score_b"],
         )
 
-    # Match result
+        st.balloons()
+
+    # Result
 
     if st.session_state.match_result:
 
@@ -519,51 +931,172 @@ elif page == "⚽ Start Match":
 
         st.divider()
 
-        st.subheader("🏆 Match Result")
+        st.markdown(
+            '<div class="section-title">'
+            '🏆 Match Result'
+            '</div>',
+            unsafe_allow_html=True,
+        )
 
-        result_col1, result_col2, result_col3 = st.columns(3)
+        r1, r2, r3 = st.columns(3)
 
-        with result_col1:
+        with r1:
 
-            display_logo(result["team_a"])
+            display_logo(
+                result["team_a"],
+                width=150,
+            )
 
             st.markdown(
-                f"<h3 style='text-align:center;'>"
-                f"{result['team_a']}"
-                f"</h3>",
+                f"""
+                <h2 style="
+                    text-align:center;
+                ">
+                {result['team_a']}
+                </h2>
+                """,
                 unsafe_allow_html=True,
             )
 
-        with result_col2:
+        with r2:
 
             st.markdown(
                 f"""
                 <div class="score">
-                    {result['score_a']} - {result['score_b']}
+                    {result['score_a']}
+                    -
+                    {result['score_b']}
                 </div>
                 """,
                 unsafe_allow_html=True,
             )
 
-        with result_col3:
-
-            display_logo(result["team_b"])
-
             st.markdown(
-                f"<h3 style='text-align:center;'>"
-                f"{result['team_b']}"
-                f"</h3>",
+                f"""
+                <div class="winner">
+                    🏆 {result['winner']}
+                </div>
+                """,
                 unsafe_allow_html=True,
             )
 
+        with r3:
+
+            display_logo(
+                result["team_b"],
+                width=150,
+            )
+
+            st.markdown(
+                f"""
+                <h2 style="
+                    text-align:center;
+                ">
+                {result['team_b']}
+                </h2>
+                """,
+                unsafe_allow_html=True,
+            )
+
+
+# =========================================================
+# WOMEN'S FOOTBALL
+# =========================================================
+
+elif page == "👩 Women's Football":
+
+    st.markdown(
+        '<div class="section-title">'
+        '👩 Women\'s Football'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <div class="football-card">
+
+        <h2>👩 Women's Football</h2>
+
+        <p style="font-size:18px;">
+        Explore the women's teams, their players
+        and their football ratings.
+        </p>
+
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    women_teams = get_teams_by_gender(
+        "Women"
+    )
+
+    columns = st.columns(2)
+
+    for index, team_name in enumerate(
+        women_teams
+    ):
+
+        with columns[index]:
+
+            st.markdown(
+                '<div class="team-card">',
+                unsafe_allow_html=True,
+            )
+
+            st.markdown(
+                f"<h2>{team_name}</h2>",
+                unsafe_allow_html=True,
+            )
+
+            display_logo(
+                team_name,
+                width=130,
+            )
+
+            display_gender_badge(
+                "Women"
+            )
+
+            st.write("")
+
+            st.metric(
+                "⭐ Team Rating",
+                calculate_team_rating(
+                    team_name
+                ),
+            )
+
+            st.write(
+                f"👩 {len(TEAMS[team_name]['players'])} players"
+            )
+
+            st.markdown(
+                '</div>',
+                unsafe_allow_html=True,
+            )
+
+    st.divider()
+
+    st.subheader(
+        "👩 Featured Women's Players"
+    )
+
+    for team_name in women_teams:
+
         st.markdown(
-            f"""
-            <div class="winner">
-                Winner: {result['winner']}
-            </div>
-            """,
-            unsafe_allow_html=True,
+            f"### 🏟️ {team_name}"
         )
+
+        for player_data in TEAMS[
+            team_name
+        ]["players"]:
+
+            st.write(
+                f"**{player_data['name']}** "
+                f"— {player_data['position']}"
+            )
 
 
 # =========================================================
@@ -573,97 +1106,150 @@ elif page == "⚽ Start Match":
 elif page == "👥 Teams & Players":
 
     st.markdown(
-        '<div class="section-title">Teams & Players</div>',
+        '<div class="section-title">'
+        '👥 Teams & Players'
+        '</div>',
         unsafe_allow_html=True,
+    )
+
+    gender_filter = st.selectbox(
+        "Filter by gender",
+        [
+            "All",
+            "Men",
+            "Women",
+        ],
+    )
+
+    available_teams = get_teams_by_gender(
+        gender_filter
     )
 
     selected_team = st.selectbox(
         "Choose a team",
-        list(TEAMS.keys()),
+        available_teams,
     )
 
     team = TEAMS[selected_team]
 
-    col1, col2 = st.columns([1, 3])
+    col1, col2 = st.columns(
+        [1, 3]
+    )
 
     with col1:
 
-        display_logo(selected_team)
+        st.markdown(
+            '<div class="football-card">',
+            unsafe_allow_html=True,
+        )
+
+        display_logo(
+            selected_team,
+            width=150,
+        )
+
+        st.markdown(
+            f"<h2>{selected_team}</h2>",
+            unsafe_allow_html=True,
+        )
+
+        display_gender_badge(
+            team["gender"]
+        )
+
+        st.write("")
 
         st.metric(
-            "Team Rating",
-            calculate_team_rating(selected_team),
+            "⭐ Team Rating",
+            calculate_team_rating(
+                selected_team
+            ),
         )
 
         st.write(
-            f"**Gender:** {team['gender']}"
+            f"👥 Players: "
+            f"{len(team['players'])}"
         )
 
         st.write(
-            f"**Type:** {team['type']}"
+            f"🏟️ Type: "
+            f"{team['type']}"
+        )
+
+        st.markdown(
+            '</div>',
+            unsafe_allow_html=True,
         )
 
     with col2:
 
         st.subheader(
-            f"{selected_team} Players"
+            f"Players — {selected_team}"
         )
 
-        for player_data in team["players"]:
+        for player_data in team[
+            "players"
+        ]:
 
             with st.expander(
-                f"{player_data['name']} — "
-                f"{player_data['position']}"
+                f"⚽ {player_data['name']} "
+                f"— {player_data['position']}"
             ):
 
-                c1, c2, c3, c4 = st.columns(4)
+                c1, c2, c3, c4 = st.columns(
+                    4
+                )
 
                 with c1:
                     st.metric(
-                        "Speed",
+                        "⚡ Speed",
                         player_data["speed"],
                     )
 
                 with c2:
                     st.metric(
-                        "Shooting",
+                        "🎯 Shooting",
                         player_data["shooting"],
                     )
 
                 with c3:
                     st.metric(
-                        "Passing",
+                        "🎯 Passing",
                         player_data["passing"],
                     )
 
                 with c4:
                     st.metric(
-                        "Dribbling",
+                        "🔥 Dribbling",
                         player_data["dribbling"],
                     )
 
-                c5, c6, c7 = st.columns(3)
+                c5, c6, c7 = st.columns(
+                    3
+                )
 
                 with c5:
                     st.metric(
-                        "Defense",
+                        "🛡️ Defense",
                         player_data["defense"],
                     )
 
                 with c6:
                     st.metric(
-                        "Physical",
+                        "💪 Physical",
                         player_data["physical"],
                     )
 
                 with c7:
                     st.metric(
-                        "Stamina",
+                        "🔋 Stamina",
                         player_data["stamina"],
                     )
 
                 if player_data["legend"]:
-                    st.success("⭐ Legend Player")
+                    st.success(
+                        "⭐ LEGEND PLAYER"
+                    )
 
 
 # =========================================================
@@ -673,35 +1259,70 @@ elif page == "👥 Teams & Players":
 elif page == "📊 Match History":
 
     st.markdown(
-        '<div class="section-title">Match History</div>',
+        '<div class="section-title">'
+        '📊 Match History'
+        '</div>',
         unsafe_allow_html=True,
     )
 
-    matches = get_recent_matches(20)
+    matches = get_recent_matches(
+        20
+    )
 
     if not matches:
 
         st.info(
-            "No matches have been played yet."
+            "⚽ No matches have been played yet."
         )
 
     else:
 
         for match in matches:
 
-            played_at, team_a, team_b, score_a, score_b = match
+            (
+                played_at,
+                team_a,
+                team_b,
+                score_a,
+                score_b,
+            ) = match
+
+            gender_a = TEAMS.get(
+                team_a,
+                {}
+            ).get(
+                "gender",
+                "Unknown",
+            )
+
+            if gender_a == "Women":
+                icon = "👩"
+            else:
+                icon = "⚽"
 
             st.markdown(
                 f"""
-                ### ⚽ {team_a} {score_a} - {score_b} {team_b}
+                <div class="football-card">
 
-                Played at: `{played_at}`
-                """
+                <h3>
+                    {icon}
+                    {team_a}
+                    &nbsp;&nbsp;
+
+                    <strong>
+                    {score_a} - {score_b}
+                    </strong>
+
+                    &nbsp;&nbsp;
+                    {team_b}
+                </h3>
+
+                <p>
+                    🕐 Played at:
+                    {played_at}
+                </p>
+
+                </div>
+                """,
+                unsafe_allow_html=True,
             )
-
-            st.divider()
-
-
-        
-
-       
